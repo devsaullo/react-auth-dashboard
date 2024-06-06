@@ -1,6 +1,6 @@
 import { ReactSVG } from 'react-svg';
 import Logo from '../../../../assets/images/logo.svg'
-import { ArrowRightCircleIcon, LockClosedIcon, EnvelopeIcon, EyeIcon } from '@heroicons/react/20/solid';
+import { ArrowRightCircleIcon, LockClosedIcon, EnvelopeIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/20/solid';
 import { InputComponent } from '../../../../components/form/input/input';
 import { LabelComponent } from '../../../../components/form/label/label';
 import { ButtonComponent } from '../../../../components/form/button/button';
@@ -9,15 +9,18 @@ import { useEffect, useState } from 'react';
 import { useAuthUser } from '../../../../provider/context';
 import { SignInUser } from '../../../../services/firebase/hooks';
 import { ToastContainer, toast } from 'react-toastify';
+import '../auth.module.css'
 
 export const AuthLogin = () => {
   const { user, loading } = useAuthUser();
   const [processingLogin, setProcessingLogin] = useState(false);
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
+  const [passType, setPassType] = useState('password')
+  const [passIsVisible, setPassVisible] = useState(false)
   const [validEmailAndPass, setValidEmailAndPass] = useState(false)
   const navigate = useNavigate()
-  const toastOptions = { position: 'bottom-left', autoClose: 2500, closeButton: false, theme: 'light', pauseOnHover: true }
+  const toastPrms = { position: 'bottom-left', autoClose: 2500, closeButton: false, theme: 'light', pauseOnHover: true }
 
   if (!loading && user && !processingLogin) {
     navigate('/', { replace: true })
@@ -48,7 +51,14 @@ export const AuthLogin = () => {
   };
 
   const passEyeVisibility = () => {
-    
+    if (passType !== 'password') {
+      setPassType('password')
+      setPassVisible(false)
+    } else
+      if (passType !== 'text') {
+        setPassType('text')
+        setPassVisible(true)
+      }
   }
 
   const SubmitForm = async (e) => {
@@ -56,8 +66,8 @@ export const AuthLogin = () => {
       e.preventDefault()
       setProcessingLogin(true);
       await SignInUser(email, pass);
-      toast.success('Successfully logged in.', toastOptions)
-      toast.loading('Redirecting you...', toastOptions)
+      toast.success('Successfully logged in.', toastPrms)
+      toast.loading('Redirecting you...', toastPrms)
       setTimeout(() => {
         navigate('/', { replace: true })
         setProcessingLogin(false)
@@ -67,16 +77,19 @@ export const AuthLogin = () => {
       setProcessingLogin(false)
       switch (error.code) {
         case ('auth/invalid-credential'):
-          toast.error('The credentials provided are invalid!', toastOptions)
+          toast.error('The credentials provided are invalid!', toastPrms)
           break;
         case ('auth/invalid-email'):
-          toast.warn("You didn't enter a valid email.", toastOptions)
+          toast.warn("You didn't enter a valid email.", toastPrms)
+          break;
+        case ('auth/user-disabled'):
+          toast.error("Your account this disabled.", toastPrms)
           break;
         case ('auth/missing-password'):
-          toast.warn("You didn't enter your password.", toastOptions)
+          toast.warn("You didn't enter your password.", toastPrms)
           break;
         case ('auth/too-many-requests'):
-          toast.warning("You have made too many requests, please try again later.", toastOptions)
+          toast.warning("You have made too many requests, please try again later.", toastPrms)
           break;
         default:
           console.error("Login Error: \n", error)
@@ -113,11 +126,11 @@ export const AuthLogin = () => {
                 <LockClosedIcon className='w-4.5 h-4.5 text-slate-400' />
                 <LabelComponent htmlFor="pass_form" >Password</LabelComponent>
               </div>
-              <Link to={'/auth/recover-pass'} role='link' className='font-bold mr-1.5 text-xs text-blue-600  text-opacity-90'>Forgot your password?</Link>
+              <Link role='link' className='font-bold mr-1.5 cursor-default text-xs text-blue-600 text-opacity-50'>Forgot your password?</Link>
             </div>
             <div className='flex relative'>
-              <InputComponent minLength={8} maxLength={20} classPName={'pr-8'} value={pass} onInput={changedFields} placeholder='RocketFlowBest' type="password" name="password" id="pass_form"></InputComponent>
-              <button className='absolute p-1 right-3 top-1/2 transform -translate-y-1/2 text-slate-400' onClick={passEyeVisibility} type='button'><EyeIcon className=' size-5 '></EyeIcon></button>
+              <InputComponent minLength={8} maxLength={20} classPName={'pr-8'} value={pass} onInput={changedFields} placeholder='RocketFlowBest' type={passType} name="password" id="pass_form"></InputComponent>
+              {pass && <button className='absolute p-1 right-3 top-1/2 transform -translate-y-1/2 text-slate-400' onClick={() => passEyeVisibility()} type='button'>{passIsVisible ? (<EyeSlashIcon className=' size-5 '></EyeSlashIcon>) : (<EyeIcon className=' size-5 '></EyeIcon>)}</button>}
             </div>
           </div>
           <div className='w-2/4 pl-0.5 pr-0.5 flex items-center'>

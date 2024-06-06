@@ -1,8 +1,7 @@
-import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate, redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import { AuthLogin } from "./pages/auth/login/app";
 import { Error404 } from "./pages/error/app";
 import { AuthRegister } from "./pages/auth/register/app";
-import { AuthRecoveryPass } from "./pages/auth/reset_pass/app";
 import { AuthUserCtxProvider, useAuthUser } from "../provider/context";
 import { useEffect } from "react";
 import { DashBoard } from "./pages/dashboard/app";
@@ -18,7 +17,7 @@ const RoutePrivate = ({ privElement }) => {
     }, [user, loading, navigate]);
 
     if (loading) {
-        return <div className="bg-blueOcean"></div>
+        return <></>
     }
 
     if (user) {
@@ -36,7 +35,6 @@ export const AppRoutes = () => {
                     <Route path="/" element={<RoutePrivate privElement={<DashBoard></DashBoard>} />} />
                     <Route path="/auth/login" element={< AuthLogin />} />
                     <Route path="/auth/register" element={<AuthRegister />} />
-                    <Route path="/auth/recover-pass" element={<AuthRecoveryPass />} />
                     <Route path="/auth" element={<Navigate to="/auth/login" replace />} />
                     <Route path="*" element={<Error404 />} />
                 </Routes>

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { SignOutUser } from "../../../services/firebase/hooks";
 import { useAuthUser } from "../../../provider/context";
-import { ArrowPathIcon, ArrowRightStartOnRectangleIcon, BookOpenIcon, BugAntIcon, ChartBarSquareIcon, Cog8ToothIcon, CommandLineIcon, DocumentIcon, DocumentTextIcon, IdentificationIcon, RocketLaunchIcon, SignalIcon, UserCircleIcon, UsersIcon } from "@heroicons/react/20/solid";
+import { ArrowRightStartOnRectangleIcon, ChartBarSquareIcon, Cog8ToothIcon, CommandLineIcon, DocumentTextIcon, IdentificationIcon, RocketLaunchIcon, UserCircleIcon, UsersIcon } from "@heroicons/react/20/solid";
 import styles from './app.module.css';
 import { ReactSVG } from "react-svg";
 import teste from '../../../assets/images/moon.svg'
@@ -57,7 +57,9 @@ export const DashBoard = () => {
         <section className=" bg-black bg-opacity-45 flex items-center justify-center  flex-col w-full h-full">
           <h1 className="font-semibold text-2xl">Hello, <span className="font-bold text-slate-200">{(user && user.displayName) || 'Unknowm'}</span> welcome to!</h1>
           <p className="font-semibold my-1 text-slate-400 text-base">You've reached the Dashboard, the place where you can control everything.</p>
-          <ReactSVG src={teste} />
+          <div className="flex w-full h-64 items-center justify-center">
+            <ReactSVG src={teste} />
+          </div>
         </section>
       </main>
     </>
