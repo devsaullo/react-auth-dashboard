@@ -61,7 +61,7 @@ export const AuthLogin = () => {
       }
   }
 
-  const SubmitForm = async (e) => {
+  const trySigninUser = async (e) => {
     try {
       e.preventDefault()
       setProcessingLogin(true);
@@ -109,31 +109,31 @@ export const AuthLogin = () => {
           </div>
           <h1 className='text-2xl font-mono font-semibold'>RocketFlow</h1>
         </div>
-        <form autoComplete='off' className="w-full max-md:p-5 my-4 h-fit flex flex-col items-center gap-5" onSubmit={SubmitForm} method='post'>
-          <div className='w-full lg:w-1/4 flex flex-col'>
+        <form autoComplete='off' className="w-full max-md:p-5 my-4 h-fit flex flex-col items-center gap-5" onSubmit={trySigninUser} method='post'>
+          <div className='w-full md:w-3/5 lg:w-2/5 xl:w-1/4 flex flex-col'>
             <div className='flex mb-1 mx-0.5 items-center justify-between'>
               <div className='flex gap-1 items-center'>
                 <EnvelopeIcon className='w-4.5 h-4.5 text-slate-400' />
                 <LabelComponent htmlFor="mail_form" >Email</LabelComponent>
               </div>
-              <Link to={'/auth/register'} role='link' className='font-bold mr-1.5 text-xs text-blue-600 text-opacity-90'>Don't have account? Sing-up</Link>
+              <Link to={'/auth/register'} role='link' className='font-bold mr-1.5 text-xs text-blue-500 text-opacity-90'>Don't have account? Sing-up</Link>
             </div>
             <InputComponent value={email} maxLength={40} onInput={changedFields} placeholder='your@email.com' type="email" name="email" id="mail_form" />
           </div>
-          <div className='w-full lg:w-1/4 flex flex-col'>
+          <div className='w-full md:w-3/5 lg:w-2/5 xl:w-1/4 flex flex-col'>
             <div className='flex mb-1 mx-0.5 items-center justify-between'>
               <div className='flex gap-1 items-center text-center'>
                 <LockClosedIcon className='w-4.5 h-4.5 text-slate-400' />
                 <LabelComponent htmlFor="pass_form" >Password</LabelComponent>
               </div>
-              <Link role='link' className='font-bold mr-1.5 cursor-default text-xs text-blue-600 text-opacity-50'>Forgot your password?</Link>
+              <Link role='link' className='font-bold mr-1.5 cursor-default text-xs text-blue-500 text-opacity-75'>Forgot your password?</Link>
             </div>
             <div className='flex relative'>
-              <InputComponent minLength={8} maxLength={20} classPName={'pr-8'} value={pass} onInput={changedFields} placeholder='RocketFlowBest' type={passType} name="password" id="pass_form"></InputComponent>
+              <InputComponent minLength={8}  maxLength={20} classPName={'pr-8'} value={pass} onInput={changedFields} placeholder='RocketFlowBest' type={passType} name="password" id="pass_form"></InputComponent>
               {pass && <button className='absolute p-1 right-3 top-1/2 transform -translate-y-1/2 text-slate-400' onClick={() => passEyeVisibility()} type='button'>{passIsVisible ? (<EyeSlashIcon className=' size-5 '></EyeSlashIcon>) : (<EyeIcon className=' size-5 '></EyeIcon>)}</button>}
             </div>
           </div>
-          <div className='w-full lg:w-1/4 pl-0.5 pr-0.5 flex items-center'>
+          <div className='w-full md:w-3/5 lg:w-2/5 xl:w-1/4 pl-0.5 pr-0.5 flex items-center'>
             <label className="inline-flex items-center cursor-pointer">
               <input type="checkbox" id='section_init' value="" className="sr-only peer" defaultChecked />
               <div className="relative w-9 h-5 bg-slate-500 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white  after:rounded-full after:h-4 after:w-4 after:transition-all  peer-checked:bg-blue-500"></div>

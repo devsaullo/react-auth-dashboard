@@ -72,7 +72,7 @@ export const AuthRegister = () => {
             }
     }
 
-    const tryRegisterUser = async (e) => {
+    const trySignupUser = async (e) => {
         try {
             e.preventDefault()
             await RegisterUser(uname, email, pass);
@@ -101,8 +101,8 @@ export const AuthRegister = () => {
                     <ReactSVG className='w-fit fill-current text-slate-400 mb-1' src={Logo} />
                     <h1 className='text-2xl font-mono font-semibold'>RocketFlow</h1>
                 </div>
-                <form autoComplete='off' className="w-full my-4 max-md:m-0 max-md:p-5 h-fit flex flex-col items-center gap-3" id='form_register' onSubmit={tryRegisterUser} method='post'>
-                    <div className='w-full lg:w-1/4 flex flex-col'>
+                <form autoComplete='off' className="w-full my-4 max-md:m-0 max-lg:p-10 max-md:p-5 h-fit flex flex-col items-center gap-3" id='form_register' onSubmit={trySignupUser} method='post'>
+                    <div className='w-full sm: md:w-3/5 lg:w-2/5 xl:w-1/4  flex flex-col'>
                         <div className='flex mb-1 mx-0.5 items-center justify-between'>
                             <div className='flex gap-1 text-center items-center'>
                                 <UserCircleIcon className='w-4.5 h-4.5 text-slate-400' />
@@ -111,11 +111,11 @@ export const AuthRegister = () => {
                         </div>
                         <InputComponent maxLength={25} classPName={`${isInvalidName ? 'bg-red-900 bg-opacity-60 border-red-800' : 'currentColor'}`} value={uname} onInput={InputChangedValue} placeholder='TheSaulloDev' type="text" name="name" id="name_form" required />
                     </div>
-                    <div className="w-full lg:w-1/4 ml-1 mb-2.5 flex text-xs text-slate-500 rounded-lg font-semibold" role="alert">
+                    <div className="w-full md:w-3/5 lg:w-2/5 xl:w-1/4 ml-1 mb-2.5 flex text-xs text-slate-500 rounded-lg font-semibold" role="alert">
                         <ExclamationCircleIcon className={`size-4 transition-colors duration-300 ease-in-out ${isInvalidName ? 'text-red-800' : 'currentColor'}`} />
                         <p className={`ml-1 text-slate-400 transition-colors duration-300 ease-in-out ${isInvalidName ? '!text-red-600' : 'currentColor'}`}>It must contain only: 'a-z, A-Z, À-Ö, Ø-ö, ø-ÿ'.</p>
                     </div>
-                    <div className='w-full lg:w-1/4 flex flex-col'>
+                    <div className='w-full md:w-3/5 lg:w-2/5 xl:w-1/4 flex flex-col'>
                         <div className='mx-1 mb-1 flex items-center'>
                             <div className='flex gap-1'>
                                 <EnvelopeIcon className='w-4.5 h-4.5 self-end text-slate-400' />
@@ -124,11 +124,11 @@ export const AuthRegister = () => {
                         </div>
                         <InputComponent maxLength={40} classPName={`${isInvalidEmail ? 'bg-red-900 bg-opacity-60 border-red-800' : 'currentColor'}`} value={email} onInput={InputChangedValue} placeholder='your@email.com' type="email" name="email" id="mail_form" required />
                     </div>
-                    <div className="w-full lg:w-1/4 ml-1 mb-2.5 flex text-xs text-slate-500 rounded-lg font-semibold" role="alert">
+                    <div className="w-full md:w-3/5 lg:w-2/5 xl:w-1/4 ml-1 mb-2.5 flex text-xs text-slate-500 rounded-lg font-semibold" role="alert">
                         <ExclamationCircleIcon className={`size-4 transition-colors duration-300 ease-in-out ${isInvalidEmail ? 'text-red-800' : 'currentColor'}`} />
                         <p className={`ml-1 text-slate-400 transition-colors duration-300 ease-in-out ${isInvalidEmail ? '!text-red-600' : 'currentColor'}`}>It must be in the format: name@email.com, without spaces.</p>
                     </div>
-                    <div className='w-full lg:w-1/4 flex flex-col'>
+                    <div className='w-full md:w-3/5 lg:w-2/5 xl:w-1/4 flex flex-col'>
                         <div className='flex mb-1 mx-0.5 items-center justify-between'>
                             <div className='flex gap-1 items-center'>
                                 <LockClosedIcon className='w-4.5 h-4.5 text-slate-400' />
@@ -140,13 +140,13 @@ export const AuthRegister = () => {
                             {pass && <button className='absolute p-1 right-3 top-1/2 transform -translate-y-1/2 text-slate-400' onClick={() => passEyeVisibility()} type='button'>{passIsVisible ? (<EyeSlashIcon className=' size-5 '></EyeSlashIcon>) : (<EyeIcon className=' size-5 '></EyeIcon>)}</button>}
                         </div>
                     </div>
-                    <div className='w-full lg:w-1/4 ml-1 mt-1 flex text-xs  text-slate-500 rounded-lg font-semibold' role="alert">
+                    <div className='w-full md:w-3/5 lg:w-2/5 xl:w-1/4 ml-1 mt-1 flex text-xs  text-slate-500 rounded-lg font-semibold' role="alert">
                         <ExclamationCircleIcon className={`size-4 transition-colors duration-300 ease-in-out ${isInvalidPass ? 'text-red-800' : 'currentColor'}`} />
                         <p className={`ml-1 text-slate-400 transition-colors duration-300 ease-in-out  ${isInvalidPass ? '!text-red-600' : 'currentColor'}`}>It must contain at least 8 characters.</p>
                     </div>
-                    <div className='w-full lg:w-1/4 my-2'>
+                    <div className='w-full md:w-3/5 lg:w-2/5 xl:w-1/4 my-2'>
                         <div className='flex items-center ml-1 peer'>
-                            <input type="checkbox" name="" id="terms_opt" className='peer size-4 cursor-pointer ' onChange={() => { setHasCkeckedTerms(!hasCheckedTerms) }} checked={hasCheckedTerms} required />
+                            <input type="checkbox" name="" id="terms_opt" className='checked:accent-blue-600 size-4 cursor-pointer ' onChange={() => { setHasCkeckedTerms(!hasCheckedTerms) }} checked={hasCheckedTerms} required />
                             <label htmlFor='terms_opt' className='ml-2 text-slate-400 text-sm font-medium'>Do you agree to the <Link className='text-blue-600 hover:underline'>terms of service.</Link></label>
                         </div>
                     </div>

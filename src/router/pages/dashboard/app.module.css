@@ -1,3 +1,7 @@
 .text_page {
     @apply px-4 py-2 flex cursor-pointer items-center text-base font-medium hover:bg-blue-950 active:bg-blue-950 hover:bg-opacity-40 rounded-md transition-colors duration-300 ease-in-out;
 }
+
+.menu_web_icon {
+    @apply size-5 mr-2
+}
