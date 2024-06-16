@@ -6,7 +6,6 @@ module.exports = {
     extend: {
       colors: {
         blueOcean: '#00182c',
-        semiBlack: '#1E293B'
       },
       width: {
         '4.5': '17px',
@@ -14,9 +13,14 @@ module.exports = {
       height: {
         '4.5': '17px',
       },
-      variants: {
-        extend: {
+      keyframes: {
+        loader_spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
         },
+      },
+      animation: {
+        loader_spin: 'spin89345 1s linear infinite',
       },
       plugins: [
         function ({ addUtilities }) {

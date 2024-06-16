@@ -10,6 +10,7 @@ import { useAuthUser } from '../../../../provider/context';
 import { SignInUser } from '../../../../services/firebase/hooks';
 import { ToastContainer, toast } from 'react-toastify';
 import '../auth.module.css'
+import { Spinner } from '../../../../components/loader/spin/app';
 
 export const AuthLogin = () => {
   const { user, loading } = useAuthUser();
@@ -19,6 +20,7 @@ export const AuthLogin = () => {
   const [passType, setPassType] = useState('password')
   const [passIsVisible, setPassVisible] = useState(false)
   const [validEmailAndPass, setValidEmailAndPass] = useState(false)
+  const [isBtnDisable, setBtnDisable] = useState(true)
   const navigate = useNavigate()
   const toastPrms = { position: 'bottom-left', autoClose: 2500, closeButton: false, theme: 'light', pauseOnHover: true }
 
@@ -27,7 +29,7 @@ export const AuthLogin = () => {
   }
 
   useEffect(() => {
-    document.title = 'Rocket Flow | Login';
+    document.title = 'Space Flow | Login';
   }, []);
 
 
@@ -48,6 +50,7 @@ export const AuthLogin = () => {
     const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     const isValidPass = password.length >= 8;
     setValidEmailAndPass(isValidEmail && isValidPass);
+    setBtnDisable(false)
   };
 
   const passEyeVisibility = () => {
@@ -65,6 +68,7 @@ export const AuthLogin = () => {
     try {
       e.preventDefault()
       setProcessingLogin(true);
+      setBtnDisable(true)
       await SignInUser(email, pass);
       toast.success('Successfully logged in.', toastPrms)
       toast.loading('Redirecting you...', toastPrms)
@@ -73,29 +77,35 @@ export const AuthLogin = () => {
         setProcessingLogin(false)
       }, 3500)
     } catch (error) {
-      setPass('')
       setProcessingLogin(false)
       switch (error.code) {
         case ('auth/invalid-credential'):
+          setEmail('')
+          setPass('')
           toast.error('The credentials provided are invalid!', toastPrms)
           break;
         case ('auth/invalid-email'):
+          setEmail('')
           toast.warn("You didn't enter a valid email.", toastPrms)
           break;
         case ('auth/user-disabled'):
+          setEmail('')
+          setPass('')
           toast.error("Your account this disabled.", toastPrms)
           break;
         case ('auth/missing-password'):
+          setPass('')
           toast.warn("You didn't enter your password.", toastPrms)
           break;
         case ('auth/too-many-requests'):
+          setEmail('')
+          setPass('')
           toast.warning("You have made too many requests, please try again later.", toastPrms)
           break;
         default:
           console.error("Login Error: \n", error)
           break;
       }
-
     }
 
   }
@@ -103,14 +113,11 @@ export const AuthLogin = () => {
   return (
     <>
       <main className="w-full h-screen flex items-center justify-center flex-col text-white bg-blueOcean" >
-        <div className='flex w-fit h-fit items-center mb-4 text-slate-300 justify-center flex-col'>
-          <div style={{ width: '300px', height: '100px' }}>
-            <ReactSVG role='img' className='w-full h-full fill-current text-slate-400 mb-1' src={Logo} />
-          </div>
-          <h1 className='text-2xl font-mono font-semibold'>RocketFlow</h1>
+        <div className='flex w-full h-52 items-center justify-center flex-col'>
+          <ReactSVG role='img' className='' src={Logo} beforeInjection={(svg) => { svg.classList.add('w-full', 'h-full') }} />
         </div>
         <form autoComplete='off' className="w-full max-md:p-5 my-4 h-fit flex flex-col items-center gap-5" onSubmit={trySigninUser} method='post'>
-          <div className='w-full md:w-3/5 lg:w-2/5 xl:w-1/4 flex flex-col'>
+          <div className='w-full md:w-3/5 lg:w-2/5  xl:w-1/4 flex flex-col'>
             <div className='flex mb-1 mx-0.5 items-center justify-between'>
               <div className='flex gap-1 items-center'>
                 <EnvelopeIcon className='w-4.5 h-4.5 text-slate-400' />
@@ -129,7 +136,7 @@ export const AuthLogin = () => {
               <Link role='link' className='font-bold mr-1.5 cursor-default text-xs text-blue-500 text-opacity-75'>Forgot your password?</Link>
             </div>
             <div className='flex relative'>
-              <InputComponent minLength={8}  maxLength={20} classPName={'pr-8'} value={pass} onInput={changedFields} placeholder='RocketFlowBest' type={passType} name="password" id="pass_form"></InputComponent>
+              <InputComponent minLength={8} maxLength={20} classPName={'pr-8'} value={pass} onInput={changedFields} placeholder='RocketFlowBest' type={passType} name="password" id="pass_form"></InputComponent>
               {pass && <button className='absolute p-1 right-3 top-1/2 transform -translate-y-1/2 text-slate-400' onClick={() => passEyeVisibility()} type='button'>{passIsVisible ? (<EyeSlashIcon className=' size-5 '></EyeSlashIcon>) : (<EyeIcon className=' size-5 '></EyeIcon>)}</button>}
             </div>
           </div>
@@ -140,11 +147,10 @@ export const AuthLogin = () => {
               <span className='ml-2 text-sm text-slate-400 font-medium cursor-default' htmlFor="section_init">Keep me signed in.</span>
             </label>
           </div>
-          <ButtonComponent disabled={!validEmailAndPass}>Sign-in<ArrowRightCircleIcon className='size-5 text-current' /></ButtonComponent>
+          <ButtonComponent disabled={!validEmailAndPass || isBtnDisable}>Sign-in{processingLogin ? (<Spinner></Spinner>) : (<ArrowRightCircleIcon className='size-5 text-current' />)}</ButtonComponent>
         </form>
+        <ToastContainer />
       </main>
-      <ToastContainer />
-
     </>
   );
 }

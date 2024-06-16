@@ -10,10 +10,11 @@ import { RegisterUser, SignOutUser } from '../../../../services/firebase/hooks';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../auth.module.css'
+import { Spinner } from '../../../../components/loader/spin/app';
 
 export const AuthRegister = () => {
     useEffect(() => {
-        document.title = 'Rocket Flow | Register';
+        document.title = 'Space Flow | Register';
     }, []);
 
     const [uname, setName] = useState('');
@@ -23,6 +24,7 @@ export const AuthRegister = () => {
     const [passIsVisible, setPassVisible] = useState(false)
     const [isInvalidName, setIsInvalidName] = useState(false)
     const [isInvalidEmail, setIsInvalidEmail] = useState(false)
+    const [isBtnDisable, setBtnDisable] = useState(false)
     const [isInvalidPass, setIsInvalidPass] = useState(false)
     const [validNameEmailAndPass, setvalidNameEmailAndPass] = useState(false)
     const [hasCheckedTerms, setHasCkeckedTerms] = useState(false)
@@ -75,6 +77,7 @@ export const AuthRegister = () => {
     const trySignupUser = async (e) => {
         try {
             e.preventDefault()
+            setBtnDisable(true)
             await RegisterUser(uname, email, pass);
             toast.success("Account created successfully.", toastPrms)
             await SignOutUser();
@@ -82,9 +85,12 @@ export const AuthRegister = () => {
                 navigate('/auth/login', { replace: true })
             }, 3500)
         } catch (error) {
+            setBtnDisable(false)
             switch (error.code) {
                 case ('auth/email-already-in-use'):
                     toast.error("The email is already in use!", toastPrms)
+                    setEmail('')
+                    setPass('')
                     break;
                 default:
                     break;
@@ -97,9 +103,8 @@ export const AuthRegister = () => {
         <>
 
             <main className="w-full h-screen flex items-center justify-center flex-col text-white bg-blueOcean" >
-                <div className='flex w-fit h-fit items-center mb-4 text-slate-300 justify-center flex-col'>
-                    <ReactSVG className='w-fit fill-current text-slate-400 mb-1' src={Logo} />
-                    <h1 className='text-2xl font-mono font-semibold'>RocketFlow</h1>
+                <div className='flex w-full h-52 items-center justify-center mb-2.5 flex-col'>
+                    <ReactSVG role='img' className='' src={Logo} beforeInjection={(svg) => { svg.classList.add('w-full', 'h-full') }} />
                 </div>
                 <form autoComplete='off' className="w-full my-4 max-md:m-0 max-lg:p-10 max-md:p-5 h-fit flex flex-col items-center gap-3" id='form_register' onSubmit={trySignupUser} method='post'>
                     <div className='w-full sm: md:w-3/5 lg:w-2/5 xl:w-1/4  flex flex-col'>
@@ -150,7 +155,7 @@ export const AuthRegister = () => {
                             <label htmlFor='terms_opt' className='ml-2 text-slate-400 text-sm font-medium'>Do you agree to the <Link className='text-blue-600 hover:underline'>terms of service.</Link></label>
                         </div>
                     </div>
-                    <ButtonComponent disabled={!validNameEmailAndPass}>Sign-up<ArrowRightCircleIcon className='size-5 text-current' /></ButtonComponent>
+                    <ButtonComponent disabled={!validNameEmailAndPass || isBtnDisable}>Sign-up{isBtnDisable ? (<Spinner></Spinner>) : (<ArrowRightCircleIcon className='size-5 text-current' />)}</ButtonComponent>
                 </form>
                 <ToastContainer />
             </main>

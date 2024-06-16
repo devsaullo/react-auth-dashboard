@@ -7,5 +7,3 @@ export const ButtonComponent = ({ children, ...props }) => {
         </>
     )
 }
-
-//            <input className='w-fit h-fit' type='checkbox' id='section_init'></input>

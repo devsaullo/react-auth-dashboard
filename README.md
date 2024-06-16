@@ -1,70 +1,79 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Logo](https://i.imgur.com/b3XPEtq.jpeg)
+---
+## About
 
-## Available Scripts
+This project is a web application developed in **ReactJS**, utilizing **Tailwind CSS** for styling and **Firebase** for user authentication and registration. The application allows new users to sign up and log in to access a dashboard that is protected by a private route, ensuring that only authenticated users have access to specific information and functionalities. **Firebase** simplifies the implementation of secure authentication, while **Tailwind CSS** provides an efficient and highly customizable approach to responsive interface design.
 
-In the project directory, you can run:
+## Environment variables
 
-### `npm start`
+To run this project, you'll need to add the following environment variables to your .env file. These variables are crucial because you'll need to add your Firebase project keys.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+`REACT_APP_FIREBASE_API_KEY=KEY`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+`REACT_APP_FIREBASE_AUTH_DOMAIN=KEY`
 
-### `npm test`
+`REACT_APP_FIREBASE_PROJECT_ID=KEY`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`REACT_APP_FIREBASE_STORAGE_BUCKET=KEY`
 
-### `npm run build`
+`REACT_APP_FIREBASE_MESSAGING_SENDER_ID=KEY`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`REACT_APP_FIREBASE_APP_ID=KEY`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Run project in Locally
 
-### `npm run eject`
+Clone the project
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git clone https://github.com/devsaullo/react-auth-dashboard
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Enter the project directory
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+cd my-project
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Install the dependencies
 
-## Learn More
+```bash
+npm install
+or
+yarn add
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Start the server
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm run start
+or 
+yarn start
+```
 
-### Code Splitting
+## Deploy
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+To deploy this project, run:
 
-### Analyzing the Bundle Size
+```bash
+npm run build
+or 
+yarn build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## Author(s) this project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- [@devsaullo](https://github.com/devsaullo)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Licenses
+Some of the licenses for this project in question.
 
-### Deployment
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 
-### `npm run build` fails to minify
+[![AGPL License](https://img.shields.io/badge/License-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
