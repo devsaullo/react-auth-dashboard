@@ -1,5 +1,7 @@
+<div style="text-align: center">
+    <img src="https://i.imgur.com/b3XPEtq.jpeg">
+</div>
 
-![Logo](https://i.imgur.com/b3XPEtq.jpeg)
 ---
 ## About
 
