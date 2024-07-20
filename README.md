@@ -1,6 +1,6 @@
 ![Logo](https://i.imgur.com/b3XPEtq.jpeg)
 ---
-## About
+# About
 
 This project is a web application developed in **ReactJS**, utilizing **Tailwind CSS** for styling and **Firebase** for user authentication and registration. The application allows new users to sign up and log in to access a dashboard that is protected by a private route, ensuring that only authenticated users have access to specific information and functionalities. **Firebase** simplifies the implementation of secure authentication, while **Tailwind CSS** provides an efficient and highly customizable approach to responsive interface design.
 
